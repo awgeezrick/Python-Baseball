@@ -15,7 +15,8 @@ for game_file in game_files:
     game_frames.append(game_frame)
 
 # this concats all the dataframes in the game_frames list into one dataframe
-games = pd.concat(game_frames, ignore_index=True)
+#games = pd.concat(game_frames, ignore_index=True)
+games = pd.concat(game_frames)
 
 games.loc[games['multi5'] == '??', ['multi5']] = ''
 
