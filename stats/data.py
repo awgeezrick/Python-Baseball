@@ -28,6 +28,6 @@ games = pd.concat([games,identifiers],axis=1,sort=False)
 
 games.fillna('',inplace=True)
 
-games['type'] = pd.Categorical(games['type'])
+games.loc[:, 'type'] = pd.Categorical(games.loc[:, 'type'])
 
-games.head()
+print(games.head())
