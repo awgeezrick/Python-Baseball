@@ -2,6 +2,10 @@ import os
 import glob
 import pandas as pd
 
+# man, my original code kept failing because I was using proper practices like inplace=True, whereas
+# the test kept wanting me to redeclare the variable. 
+
+
 # create a list of the location of all the game files that end in 'eve' from the games directory
 game_files = glob.glob(os.path.join(os.getcwd(),'games','*.EVE'))
 
@@ -26,7 +30,7 @@ identifiers.columns = ['game_id', 'year']
 
 games = pd.concat([games,identifiers],axis=1,sort=False)
 
-games.fillna(' ',inplace=True)
+games = games.fillna(' ')
 
 games.loc[:, 'type'] = pd.Categorical(games.loc[:, 'type'])
 
