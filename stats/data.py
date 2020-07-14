@@ -3,7 +3,7 @@ import glob
 import pandas as pd
 
 # man, my original code kept failing because I was using proper practices like inplace=True, whereas
-# the test kept wanting me to redeclare the variable. 
+# the test kept wanting me to redeclare the variable.
 
 
 # create a list of the location of all the game files that end in 'eve' from the games directory
