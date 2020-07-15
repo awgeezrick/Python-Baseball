@@ -18,13 +18,23 @@ events.columns = events.columns.droplevel()
 events.columns = ['year', 'game_id', 'team', 'BB', 'E', 'H', 'HBP', 'HR', 'ROE', 'SO']
 
 events = events.rename_axis(None,axis='columns')
+# i used the below but the commit test failed
+#events_plus_pa = pd.merge(events,right=pa,how='outer',left_on=['year','game_id','team'],right_on=['year','game_id','team'])
 
-events_plus_pa = pd.merge(events,right=pa,how='outer',left_on=['year','game_id','team'],right_on=['year','game_id','team'])
+#this is their solution for the above
+events_plus_pa = pd.merge(events, pa, how='outer', left_on=['year', 'game_id', 'team'], right_on=['year', 'game_id', 'team'])
 
-defense = pd.merge(events_plus_pa,right=info)
+# i used the below but the commit test failed
+#defense = pd.merge(events_plus_pa,right=info)
 
+#this is their solution for above
+defense = pd.merge(events_plus_pa, info)
 
-defense['DER'] = defense.apply(lambda x: (1 - ((x['H'] + x['ROE']) / (x['PA'] - x['BB'] - x['SO'] - x['HBP'] - x['HR']))), axis=1)
+# i used the below but the commit test failed
+#defense['DER'] = defense.apply(lambda x: (1 - ((x['H'] + x['ROE']) / (x['PA'] - x['BB'] - x['SO'] - x['HBP'] - x['HR']))), axis=1)
+
+#this is their solution for above
+defense.loc[:, 'DER'] = 1 - ((defense['H'] + defense['ROE']) / (defense['PA'] - defense['BB'] - defense['SO'] - defense['HBP'] - defense['HR']))
 
 defense.loc[:, 'year'] = pd.to_numeric(defense.loc[:, 'year'])
 
