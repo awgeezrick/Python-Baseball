@@ -1,7 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from stats.data import games
-from stats.frames import info, events
+from stats.frames import games, info, events
 
 plays = games.query("type == 'play' & event != 'NP'")
 plays.columns = ['type', 'inning', 'team', 'player', 'count', 'pitches', 'event', 'game_id', 'year']
@@ -18,16 +17,9 @@ events.columns = events.columns.droplevel()
 events.columns = ['year', 'game_id', 'team', 'BB', 'E', 'H', 'HBP', 'HR', 'ROE', 'SO']
 
 events = events.rename_axis(None,axis='columns')
-# i used the below but the commit test failed
-#events_plus_pa = pd.merge(events,right=pa,how='outer',left_on=['year','game_id','team'],right_on=['year','game_id','team'])
 
-#this is their solution for the above
 events_plus_pa = pd.merge(events, pa, how='outer', left_on=['year', 'game_id', 'team'], right_on=['year', 'game_id', 'team'])
 
-# i used the below but the commit test failed
-#defense = pd.merge(events_plus_pa,right=info)
-
-#this is their solution for above
 defense = pd.merge(events_plus_pa, info)
 
 # i used the below but the commit test failed
